@@ -26,3 +26,39 @@ body {
   background-color: var(--color-fondo);
   color: var(--color-texto);
 }
+/* ─── ENCABEZADO ─── */
+.encabezado {
+  background-color: var(--color-primario);
+  color: var(--color-claro);
+  padding: 40px 20px;
+  text-align: center;
+  border-bottom: 6px solid var(--color-secundario);
+}
+ 
+.encabezado h1 {
+  font-family: var(--fuente-titulo);
+  font-size: 2.5rem;
+  letter-spacing: 1px;
+}
+ 
+.encabezado .subtitulo {
+  margin-top: 8px;
+  font-style: italic;
+  color: var(--color-fondo);
+}
+ 
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+ 
+h2 {
+  font-family: var(--fuente-titulo);
+  color: var(--color-primario);
+  border-bottom: 3px solid var(--color-secundario);
+  display: inline-block;
+  padding-bottom: 5px;
+  margin-bottom: 20px;
+}
+ 
