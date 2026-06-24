@@ -10,6 +10,9 @@ const menu = [
 
 const reservas = [];
 
+// Simbolo de moneda usado en el precio de cada platillo
+const SIMBOLO_COLON = '₡';
+
 
 function renderMenu() {
 
