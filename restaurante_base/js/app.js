@@ -68,13 +68,93 @@ function renderMenu() {
     columna.appendChild(card);
     contenedorMenu.appendChild(columna);
   }
-
-
 }
-
 
 function filtrarCategoria(categoria) {
 
+  const contenedorMenu = document.getElementById('contenedorMenu');
+  contenedorMenu.innerHTML = '';
+ 
+  // Se construye un arreglo temporal con los platillos que coinciden
+  const platillosFiltrados = [];
+ 
+  for (let i = 0; i < menu.length; i++) {
+    if (categoria === 'Todos' || menu[i].categoria === categoria) {
+      platillosFiltrados.push(menu[i]);
+    }
+  }
+ 
+  // Se dibuja cada platillo filtrado (mismo procedimiento que en renderMenu)
+  for (let i = 0; i < platillosFiltrados.length; i++) {
+ 
+    const platillo = platillosFiltrados[i];
+ 
+    const columna = document.createElement('div');
+    columna.className = 'col-md-4 col-sm-6';
+ 
+    const card = document.createElement('div');
+    card.className = 'card-plato';
+ 
+    const titulo = document.createElement('h3');
+    titulo.innerHTML = platillo.nombre;
+ 
+  // Se crea un elemento p para la descripcion y se le asigna la clase descripcion-plato y el contenido de la descripcion del platillo
+    const descripcion = document.createElement('p');
+    descripcion.className = 'descripcion-plato';
+    descripcion.innerHTML = platillo.descripcion;
+ 
+    const textoPrecio = platillo.precio.toString();
+    let precioFormateado = '';
+    let contadorCifras = 0;
+ 
+    // Se recorre el texto del precio de derecha a izquierda y se agrega un punto cada 3 cifras
+    for (let j = textoPrecio.length - 1; j >= 0; j--) {
+      precioFormateado = textoPrecio[j] + precioFormateado;
+      contadorCifras = contadorCifras + 1;
+      if (contadorCifras % 3 === 0 && j !== 0) {
+        precioFormateado = '.' + precioFormateado;
+      }
+    }
+ 
+    const precio = document.createElement('p');
+    precio.className = 'precio-plato';
+    precio.innerHTML = SIMBOLO_COLON + precioFormateado;
+ 
+    const etiquetaCategoria = document.createElement('span');
+    etiquetaCategoria.className = 'categoria-plato';
+    etiquetaCategoria.innerHTML = platillo.categoria;
+ 
+    card.appendChild(titulo);
+    card.appendChild(descripcion);
+    card.appendChild(precio);
+    card.appendChild(etiquetaCategoria);
+ 
+    columna.appendChild(card);
+    contenedorMenu.appendChild(columna);
+  }
+ 
+  // ---------- Se marca visualmente el boton activo ----------
+  const btnTodos = document.getElementById('btnTodos');
+  const btnEntradas = document.getElementById('btnEntradas');
+  const btnPlatosFuertes = document.getElementById('btnPlatosFuertes');
+  const btnPostres = document.getElementById('btnPostres');
+ 
+  // Primero se dejan los 4 botones sin la clase "activo"
+  btnTodos.className = 'btn-filtro';
+  btnEntradas.className = 'btn-filtro';
+  btnPlatosFuertes.className = 'btn-filtro';
+  btnPostres.className = 'btn-filtro';
+ 
+  // Luego se le agrega "activo" solamente al boton que corresponde
+  if (categoria === 'Todos') {
+    btnTodos.className = 'btn-filtro activo';
+  } else if (categoria === 'Entrada') {
+    btnEntradas.className = 'btn-filtro activo';
+  } else if (categoria === 'Plato Fuerte') {
+    btnPlatosFuertes.className = 'btn-filtro activo';
+  } else if (categoria === 'Postre') {
+    btnPostres.className = 'btn-filtro activo';
+  }
 }
 
 function validarFormulario() {
