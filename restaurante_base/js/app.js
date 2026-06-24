@@ -362,19 +362,83 @@ function agregarReserva() {
   document.getElementById('errorPersonas').innerHTML = '';
 }
 
-
+// ---------- ACTUALIZAR RESUMEN DE RESERVAS ----------
 function actualizarResumen() {
+
+  const resumenReservas = document.getElementById('resumenReservas');
+ 
+  // Si todavia no hay reservas, se muestra el mensaje por defecto
+  if (reservas.length === 0) {
+    resumenReservas.innerHTML = '<p>Aún no hay reservas registradas.</p>';
+    return;
+  }
+ 
+  // Total de reservas registradas
+  const totalReservas = reservas.length;
+ 
+  // Total de personas esperadas
+  let totalPersonas = 0;
+  for (let i = 0; i < reservas.length; i++) {
+    totalPersonas = totalPersonas + reservas[i].personas;
+  }
+ 
+  // Reserva con mayor numero de personas
+  let reservaMayor = reservas[0];
+  for (let i = 1; i < reservas.length; i++) {
+    if (reservas[i].personas > reservaMayor.personas) {
+      reservaMayor = reservas[i];
+    }
+  }
+ // Se construye el contenido HTML del resumen y se asigna
+  resumenReservas.innerHTML =
+    '<p><strong>Total de reservas:</strong> ' + totalReservas + '</p>' +
+    '<p><strong>Total de personas esperadas:</strong> ' + totalPersonas + '</p>' +
+    '<p><strong>Reserva con más personas:</strong> ' + reservaMayor.nombre +
+    ' (' + reservaMayor.personas + ' personas)</p>';
 
 }
 
-
+// ---------- EVENTOS ----------
+ 
 document.addEventListener('DOMContentLoaded', function () {
+ 
+  // Se muestra el menu completo al cargar
   renderMenu();
-
+ 
+  // Se muestra el resumen inicial (sin reservas todavia)
+  actualizarResumen();
+ 
+  // Cada boton de filtro se escucha por separado con addEventListener,
+  // igual que se vio en la Unidad 3 con el boton "Agregar Tarea".
+  document.getElementById('btnTodos').addEventListener('click', function () {
+    filtrarCategoria('Todos');
+  });
+ 
+  document.getElementById('btnEntradas').addEventListener('click', function () {
+    filtrarCategoria('Entrada');
+  });
+ 
+  document.getElementById('btnPlatosFuertes').addEventListener('click', function () {
+    filtrarCategoria('Plato Fuerte');
+  });
+ 
+  document.getElementById('btnPostres').addEventListener('click', function () {
+    filtrarCategoria('Postre');
+  });
+ 
+  // Se valida el formulario cada vez que el usuario escribe o cambia algo
+  document.getElementById('form-reserva').addEventListener('input', function () {
+    validarFormulario();
+  });
+ 
 });
-
-
+ 
+ 
 document.getElementById('form-reserva').addEventListener('submit', function (e) {
   e.preventDefault(); // Evitar recarga de página
-
+ 
+  if (validarFormulario()) {
+    agregarReserva();
+  }
 });
+
