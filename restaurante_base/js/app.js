@@ -291,9 +291,75 @@ function validarFormulario() {
   return formularioValido;
 }
 
-
+// ---------- AGREGAR RESERVA ----------
 function agregarReserva() {
 
+  // Se obtienen los elementos del formulario
+  const inputNombre = document.getElementById('nombre');
+  const inputCorreo = document.getElementById('correo');
+  const inputFecha = document.getElementById('fecha');
+  const inputHora = document.getElementById('hora');
+  const inputPersonas = document.getElementById('personas');
+ 
+  // Se construye el objeto con los datos de la nueva reserva
+  const nuevaReserva = {
+    nombre: inputNombre.value,
+    correo: inputCorreo.value,
+    fecha: inputFecha.value,
+    hora: inputHora.value,
+    personas: parseInt(inputPersonas.value)
+  };
+ 
+  // Se guarda la reserva en el arreglo global, con push como se vio en clase
+  reservas.push(nuevaReserva);
+ 
+  // Se crea la fila de la tabla
+  const cuerpoTablaReservas = document.getElementById('cuerpoTablaReservas');
+ 
+  const fila = document.createElement('tr');
+  fila.className = 'fila-reserva';
+ 
+  // Si la reserva tiene 6 o mas personas, se resalta la fila
+  if (nuevaReserva.personas >= 6) {
+    fila.className = 'fila-reserva grupo-grande';
+  }
+ 
+  const celdaNombre = document.createElement('td');
+  celdaNombre.innerHTML = nuevaReserva.nombre;
+ 
+  const celdaCorreo = document.createElement('td');
+  celdaCorreo.innerHTML = nuevaReserva.correo;
+ 
+  const celdaFecha = document.createElement('td');
+  celdaFecha.innerHTML = nuevaReserva.fecha;
+ 
+  const celdaHora = document.createElement('td');
+  celdaHora.innerHTML = nuevaReserva.hora;
+ 
+  const celdaPersonas = document.createElement('td');
+  celdaPersonas.innerHTML = nuevaReserva.personas;
+ 
+  // Se agregan las celdas a la fila y la fila al cuerpo de la tabla
+  fila.appendChild(celdaNombre);
+  fila.appendChild(celdaCorreo);
+  fila.appendChild(celdaFecha);
+  fila.appendChild(celdaHora);
+  fila.appendChild(celdaPersonas);
+ 
+  cuerpoTablaReservas.appendChild(fila);
+ 
+  // Se actualiza el resumen con la nueva informacion
+  actualizarResumen();
+ 
+  // Se limpia el formulario despues de agregar la reserva
+  document.getElementById('form-reserva').reset();
+  document.getElementById('btnReservar').disabled = true;
+ 
+  // Se limpian los mensajes de error que pudieran quedar
+  document.getElementById('errorNombre').innerHTML = '';
+  document.getElementById('errorCorreo').innerHTML = '';
+  document.getElementById('errorFecha').innerHTML = '';
+  document.getElementById('errorPersonas').innerHTML = '';
 }
 
 
