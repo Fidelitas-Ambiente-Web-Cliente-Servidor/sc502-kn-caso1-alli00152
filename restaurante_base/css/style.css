@@ -264,7 +264,30 @@ h2 {
 }
  
 
+ /* ─── PIE DE PAGINA footer ─── */
+.pie {
+  background-color: var(--color-primario);
+  color: var(--color-fondo);
+  text-align: center;
+  padding: 18px;
+  font-size: 0.9rem;
+}
  
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .encabezado h1 {
+    font-size: 1.8rem;
+  }
+ 
+  .filtros {
+    justify-content: center;
+  }
+ 
+  .seccion-reservas,
+  .seccion-tabla {
+    padding: 18px;
+  }
+}
 
 
 
