@@ -2,6 +2,7 @@
   /* ─── Paleta de colores ─────────────────────────
      TODO: Podés cambiar estos valores para personalizar
      el tema de tu restaurante
+     Allison Alvarado Montero 
   ─────────────────────────────────────────────── */
   --color-primario:    #2C3E50;
   --color-secundario:  #E67E22;
@@ -61,4 +62,209 @@ h2 {
   padding-bottom: 5px;
   margin-bottom: 20px;
 }
+
+/* ─── SECCION MENU - FILTROS ─── */
+.seccion-menu {
+  margin-bottom: 50px;
+}
  
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+ 
+.btn-filtro {
+  background-color: var(--color-claro);
+  border: 2px solid var(--color-primario);
+  color: var(--color-primario);
+  padding: 8px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: var(--fuente-cuerpo);
+  transition: background-color 0.2s, color 0.2s;
+}
+ 
+.btn-filtro:hover {
+  background-color: var(--color-fondo);
+}
+ 
+/* Boton de la categoria, se ve distinto al resto */
+.btn-filtro.activo {
+  background-color: var(--color-secundario);
+  border-color: var(--color-secundario);
+  color: var(--color-claro);
+}
+ /* ─── CARDS DE PLATILLOS ─── */
+.card-plato {
+  background-color: var(--color-claro);
+  border: 1px solid var(--color-fondo);
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-top: 5px solid var(--color-secundario);
+}
+ 
+.card-plato h3 {
+  font-family: var(--fuente-titulo);
+  color: var(--color-primario);
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+}
+ 
+.card-plato .descripcion-plato {
+  color: var(--color-texto);
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+}
+ 
+.card-plato .precio-plato {
+  font-weight: bold;
+  color: var(--color-secundario);
+  font-size: 1.1rem;
+}
+ 
+.card-plato .categoria-plato {
+  display: inline-block;
+  margin-top: 10px;
+  background-color: var(--color-fondo);
+  color: var(--color-primario);
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  width: fit-content;
+}
+ 
+/* ─── SECCION RESERVAS ─── */
+.seccion-reservas {
+  background-color: var(--color-claro);
+  border-radius: 10px;
+  padding: 30px;
+  margin-bottom: 50px;
+  border: 1px solid var(--color-fondo);
+}
+ 
+.form-label {
+  font-weight: bold;
+  color: var(--color-primario);
+  margin-bottom: 5px;
+  display: block;
+}
+ 
+.form-control,
+.form-select {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid var(--color-fondo);
+  border-radius: 6px;
+  margin-bottom: 5px;
+  font-family: var(--fuente-cuerpo);
+}
+ 
+.form-control:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--color-secundario);
+}
+ 
+/* Mensajes de error debajo de cada input */
+.error-campo {
+  color: var(--color-secundario);
+  font-size: 0.85rem;
+  min-height: 18px;
+  font-weight: bold;
+}
+ 
+.btn-reservar {
+  background-color: var(--color-primario);
+  color: var(--color-claro);
+  border: none;
+  padding: 12px 30px;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+ 
+.btn-reservar:hover {
+  background-color: var(--color-secundario);
+}
+ 
+/* El boton deshabilitado se ve apagado, hasta que el formulario sea valido */
+.btn-reservar:disabled {
+  background-color: #b9b9b9;
+  cursor: not-allowed;
+}
+ 
+/* ─── TABLA DE RESERVAS ─── */
+.seccion-tabla {
+  background-color: var(--color-claro);
+  border-radius: 10px;
+  padding: 30px;
+  margin-bottom: 50px;
+  border: 1px solid var(--color-fondo);
+}
+ 
+.tabla-wrapper {
+  overflow-x: auto;
+}
+ 
+.tabla-reservas {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+ 
+.tabla-reservas th {
+  background-color: var(--color-primario);
+  color: var(--color-claro);
+  padding: 10px;
+  text-align: left;
+}
+ 
+.tabla-reservas td {
+  padding: 10px;
+  border-bottom: 1px solid var(--color-fondo);
+}
+ 
+.fila-reserva {
+  background-color: var(--color-fondo);
+}
+ 
+.fila-reserva:nth-child(even) {
+  background-color: var(--color-claro);
+}
+ 
+/* Para reservas de 6 o mas personas */
+.fila-reserva.grupo-grande {
+  background-color: var(--color-reserva-vip);
+  color: var(--color-claro);
+  font-weight: bold;
+}
+ 
+/* ─── RESUMEN RESERVAS ─── */
+.resumen-reservas {
+  background-color: var(--color-fondo);
+  border-left: 6px solid var(--color-primario);
+  padding: 15px 20px;
+  border-radius: 8px;
+}
+ 
+.resumen-reservas p {
+  margin: 4px 0;
+  color: var(--color-primario);
+}
+ 
+
+ 
+
+
+
