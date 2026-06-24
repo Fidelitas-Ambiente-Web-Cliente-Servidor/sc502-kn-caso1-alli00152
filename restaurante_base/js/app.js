@@ -13,7 +13,7 @@ const reservas = [];
 // Simbolo de moneda usado en el precio de cada platillo
 const SIMBOLO_COLON = '₡';
 
-
+// ---------- RENDERIZAR MENU ----------
 function renderMenu() {
 
  // Se obtiene el contenedor del menu y se limpia su contenido para volver a dibujar
@@ -70,6 +70,7 @@ function renderMenu() {
   }
 }
 
+// ---------- FILTRAR PLATILLOS POR CATEGORIA ----------
 function filtrarCategoria(categoria) {
 
   const contenedorMenu = document.getElementById('contenedorMenu');
@@ -157,10 +158,139 @@ function filtrarCategoria(categoria) {
   }
 }
 
+// ---------- VALIDACION FORMULARIO DE RESERVA ----------
 function validarFormulario() {
-
-  return false; // Cambiar según la validación
+  
+  let formularioValido = true;
+ 
+  // Se obtienen los elementos del formulario y los elementos donde se mostraran los errores
+  const inputNombre = document.getElementById('nombre');
+  const inputCorreo = document.getElementById('correo');
+  const inputFecha = document.getElementById('fecha');
+  const inputPersonas = document.getElementById('personas');
+  const errorNombre = document.getElementById('errorNombre');
+  const errorCorreo = document.getElementById('errorCorreo');
+  const errorFecha = document.getElementById('errorFecha');
+  const errorPersonas = document.getElementById('errorPersonas');
+  const btnReservar = document.getElementById('btnReservar');
+ 
+  const nombre = inputNombre.value;
+  const correo = inputCorreo.value;
+  const fecha = inputFecha.value;
+  const personas = inputPersonas.value;
+ 
+  // ---------- VALIDAR NOMBRE ----------
+  // Obligatorio, minimo 5 caracteres, solo letras y espacios.
+  // Se revisa caracter por caracter con un for, en vez de usar una expresion regular.
+  if (nombre === '') {
+    errorNombre.innerHTML = 'El nombre es obligatorio.';
+    formularioValido = false;
+  } else if (nombre.length < 5) {
+    errorNombre.innerHTML = 'El nombre debe tener al menos 5 caracteres.';
+    formularioValido = false;
+  } else {
+ 
+    let nombreValido = true;
+ 
+    // Se recorre cada caracter del nombre y se valida que sea una letra o un espacio
+    for (let i = 0; i < nombre.length; i++) {
+      const caracter = nombre.charAt(i).toLowerCase();
+      const esLetra = (caracter >= 'a' && caracter <= 'z') || caracter === ' ' ||
+        caracter === 'á' || caracter === 'é' || caracter === 'í' || caracter === 'ó' ||
+        caracter === 'ú' || caracter === 'ñ';
+ 
+      if (!esLetra) {
+        nombreValido = false;
+      }
+    }
+ // Si se encontro un caracter invalido, se muestra el mensaje de error
+    if (!nombreValido) {
+      errorNombre.innerHTML = 'El nombre solo puede contener letras y espacios.';
+      formularioValido = false;
+    } else {
+      errorNombre.innerHTML = '';
+    }
+  }
+ 
+  // ---------- VALIDAR CORREO ----------
+  // Obligatorio, debe contener un "@" y un "." despues del "@".
+  // Se busca con indexOf en vez de una expresion regular.
+  if (correo === '') {
+    errorCorreo.innerHTML = 'El correo es obligatorio.';
+    formularioValido = false;
+  } else {
+ 
+    const posicionArroba = correo.indexOf('@');
+    let correoValido = true;
+ 
+    if (posicionArroba <= 0) {
+      // No tiene "@" o esta al inicio del texto
+      correoValido = false;
+    } else {
+      const posicionPunto = correo.indexOf('.', posicionArroba);
+      if (posicionPunto === -1 || posicionPunto === correo.length - 1) {
+        // No tiene un "." despues del "@", o el punto queda al final
+        correoValido = false;
+      }
+    }
+ 
+    if (!correoValido) {
+      errorCorreo.innerHTML = 'El formato del correo no es válido.';
+      formularioValido = false;
+    } else {
+      errorCorreo.innerHTML = '';
+    }
+  }
+ 
+  // ---------- VALIDAR FECHA ----------
+  // Obligatoria, no puede ser una fecha pasada.
+  // El input fecha entrega el texto en formato "AAAA-MM-DD", por lo que se puede
+  // comparar directamente como texto contra la fecha de hoy armada igual.
+  if (fecha === '') {
+    errorFecha.innerHTML = 'La fecha es obligatoria.';
+    formularioValido = false;
+  } else {
+ 
+    const hoy = new Date();
+    const anio = hoy.getFullYear();
+    let mes = hoy.getMonth() + 1;
+    let dia = hoy.getDate();
+ 
+    if (mes < 10) {
+      mes = '0' + mes;
+    }
+    if (dia < 10) {
+      dia = '0' + dia;
+    }
+ 
+    const fechaHoyTexto = anio + '-' + mes + '-' + dia;
+ 
+    if (fecha < fechaHoyTexto) {
+      errorFecha.innerHTML = 'La fecha no puede ser pasada.';
+      formularioValido = false;
+    } else {
+      errorFecha.innerHTML = '';
+    }
+  }
+ 
+  // ---------- VALIDAR NUMERO DE PERSONAS ----------
+  // Obligatorio, entre 1 y 20.
+  if (personas === '') {
+    errorPersonas.innerHTML = 'El número de personas es obligatorio.';
+    formularioValido = false;
+  } else if (personas < 1 || personas > 20) {
+    errorPersonas.innerHTML = 'Debe ser un número entre 1 y 20.';
+    formularioValido = false;
+  } else {
+    errorPersonas.innerHTML = '';
+  }
+ 
+  // Se habilita o deshabilita el boton segun el resultado
+  btnReservar.disabled = !formularioValido;
+ 
+  return formularioValido;
 }
+
 
 function agregarReserva() {
 
