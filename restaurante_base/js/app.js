@@ -16,6 +16,60 @@ const SIMBOLO_COLON = '₡';
 
 function renderMenu() {
 
+ // Se obtiene el contenedor del menu y se limpia su contenido para volver a dibujar
+  const contenedorMenu = document.getElementById('contenedorMenu');
+  contenedorMenu.innerHTML = '';
+ // Se recorre el arreglo de menu con un for clasico y se crean los elementos HTML para cada platillo
+  for (let i = 0; i < menu.length; i++) {
+ 
+    const platillo = menu[i];
+ 
+    const columna = document.createElement('div');
+    columna.className = 'col-md-4 col-sm-6';
+ 
+    const card = document.createElement('div');
+    card.className = 'card-plato';
+ 
+    const titulo = document.createElement('h3');
+    titulo.innerHTML = platillo.nombre;
+ // Se crea un elemento p para la descripcion y se le asigna la clase descripcion-plato y el contenido de la descripcion del platillo
+    const descripcion = document.createElement('p');
+    descripcion.className = 'descripcion-plato';
+    descripcion.innerHTML = platillo.descripcion;
+ 
+  // Se formatea el precio con puntos como separador de miles y se crea un elemento p para el precio
+    const textoPrecio = platillo.precio.toString();
+    let precioFormateado = '';
+    let contadorCifras = 0;
+
+ // Se recorre el texto del precio de derecha a izquierda y se agrega un punto cada 3 cifras
+    for (let j = textoPrecio.length - 1; j >= 0; j--) {
+      precioFormateado = textoPrecio[j] + precioFormateado;
+      contadorCifras = contadorCifras + 1;
+      if (contadorCifras % 3 === 0 && j !== 0) {
+        precioFormateado = '.' + precioFormateado;
+      }
+    }
+ 
+    // Se crea un elemento p para el precio y se le asigna la clase precio-plato y el contenido del precio formateado con el simbolo de colon
+    const precio = document.createElement('p');
+    precio.className = 'precio-plato';
+    precio.innerHTML = SIMBOLO_COLON + precioFormateado;
+ 
+    const etiquetaCategoria = document.createElement('span');
+    etiquetaCategoria.className = 'categoria-plato';
+    etiquetaCategoria.innerHTML = platillo.categoria;
+ 
+    card.appendChild(titulo);
+    card.appendChild(descripcion);
+    card.appendChild(precio);
+    card.appendChild(etiquetaCategoria);
+ 
+    columna.appendChild(card);
+    contenedorMenu.appendChild(columna);
+  }
+
+
 }
 
 
